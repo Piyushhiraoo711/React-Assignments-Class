@@ -1,0 +1,106 @@
+{
+  "products": [
+    {
+      "id": "4",
+      "name": "USB-C Charger",
+      "price": 18.75,
+      "description": "Fast charging adapter"
+    },
+    {
+      "id": "5",
+      "name": "Laptop Stand",
+      "price": 25,
+      "description": "Ergonomic aluminum stand"
+    },
+    {
+      "id": "6",
+      "name": "Bluetooth Speaker",
+      "price": 35.99,
+      "description": "Portable and loud"
+    },
+    {
+      "id": "7",
+      "name": "Smartwatch",
+      "price": 60.49,
+      "description": "Tracks fitness and notifications"
+    },
+    {
+      "id": "8",
+      "name": "HD Webcam",
+      "price": 40,
+      "description": "1080p video clarity"
+    },
+    {
+      "id": "9",
+      "name": "Portable SSD",
+      "price": 79.99,
+      "description": "1TB high-speed storage"
+    },
+    {
+      "id": "10",
+      "name": "Wireless Earbuds",
+      "price": 29.5,
+      "description": "Noise-cancelling and compact"
+    },
+    {
+      "id": "11",
+      "name": "Smart LED Bulb",
+      "price": 12.99,
+      "description": "Color-changing via app"
+    },
+    {
+      "id": "12",
+      "name": "Action Camera",
+      "price": 99,
+      "description": "4K recording and waterproof"
+    },
+    {
+      "id": "13",
+      "name": "External Hard Drive",
+      "price": 65.25,
+      "description": "2TB USB 3.0 drive"
+    },
+    {
+      "id": "14",
+      "name": "Graphic Tablet",
+      "price": 50,
+      "description": "Perfect for digital art"
+    },
+    {
+      "id": "15",
+      "name": "Gaming Chair",
+      "price": 120,
+      "description": "Ergonomic and adjustable"
+    },
+    {
+      "id": "16",
+      "name": "VR Headset",
+      "price": 199.99,
+      "description": "Immersive virtual experience"
+    },
+    {
+      "id": "17",
+      "name": "Wireless Keyboard",
+      "price": 22.49,
+      "description": "Compact and quiet"
+    },
+    {
+      "id": "18",
+      "name": "Monitor Stand",
+      "price": 27.99,
+      "description": "Adjustable desk riser"
+    },
+    {
+      "id": "19",
+      "name": "HDMI Cable",
+      "price": 8.99,
+      "description": "Supports 4K resolution"
+    },
+    {
+      "id": "20",
+      "name": "Power Bank",
+      "price": 24.99,
+      "description": "10000mAh fast charging"
+    }
+  ]
+}

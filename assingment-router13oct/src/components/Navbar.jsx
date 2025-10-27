@@ -1,12 +1,39 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Home from "../pages/Home";
-import Addproduct from "../pages/AddProduct";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "../appcss/navbar.css";
+import { AppContext } from "../contextAPI/AppContext";
+import { getUser, saveUser } from "../utils/localStorage";
+import { useDispatch, useSelector } from "react-redux";
+import { userLogout } from "../user/userSlice";
 
-export const Navbar = () => {
+const Navbar = () => {
+  const navigate = useNavigate();
+  // const { state, dispatch } = useContext(AppContext);
+  const user = useSelector((state) => state.users.users);
+  const loggedInUser = useSelector((state) => state.users.loggedInUser);
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    // console.log("logout");
+    // setUser(null);
+    // setIsLogged(false);
+    const user = getUser();
+    if (user) {
+      const updatedUser = { ...user, isLogin: false };
+      saveUser(updatedUser);
+    }
+    // dispatch({ type: "logout" });
+    dispatch(userLogout(user?.id));
+  };
+
+  const onLogoutClick = () => {
+    handleLogout();
+    navigate("/login");
+  };
+
   return (
     <>
+      {console.log("logged In user", loggedInUser)}
       <div className="navbar">
         <div className="navbar-left">
           <img
@@ -14,12 +41,29 @@ export const Navbar = () => {
             alt="logo"
           />
         </div>
-
         <div className="navbar-right">
           <Link to="/">Home</Link>
           <Link to="/add/products">Add Product</Link>
+          <button
+            onClick={() => {
+              if (loggedInUser.isLogin) {
+                onLogoutClick();
+              } else {
+                navigate("/login");
+              }
+            }}
+            style={{
+              marginLeft: "10px",
+              padding: "5px 10px",
+              cursor: "pointer",
+            }}
+          >
+            {loggedInUser.isLogin ? " Logout" : "Login"}
+          </button>
         </div>
       </div>
     </>
   );
 };
+
+export default Navbar;

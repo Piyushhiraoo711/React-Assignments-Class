@@ -1,214 +1,75 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 import { useNavigate } from "react-router-dom";
+import "../appcss/home.css";
+import useFetch from "../customhooks/useFetchProduct";
+import { AppContext } from "../contextAPI/AppContext";
+import { useDispatch, useSelector } from "react-redux";
+import { deletedProduct, getProducts } from "../products/productSlice";
 
 const Home = () => {
-  const [products, setProducts] = useState([]);
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [products, setProducts] = useState([]);
   const navigate = useNavigate();
+  // const { state, dispatch } = useContext(AppContext);
+  const products = useSelector((state) => state.products.products);
+  const user = useSelector((state) => state.users.users);
 
+  const dispatch = useDispatch();
   const fetchProduct = async () => {
     try {
-      const res = await fetch("http://localhost:3000/products");
-      const data = await res.json();
-      setProducts(data);
-      console.log("data", data);
+      // setIsLoading(true);
+      const data = await useFetch({
+        method: "GET",
+      });
+      console.log(data);
+      if (data) {
+        // setProducts(data);
+        // dispatch({ type: "get_product", payload: data });
+        dispatch(getProducts(data));
+      } else {
+        console.log("error", error);
+      }
     } catch (error) {
-      console.log("error", error);
+      console.log("Error", error);
     }
   };
 
   const deleteProduct = async (id) => {
     try {
-      const res = await fetch(`http://localhost:3000/products/${id}`, {
+      await useFetch({
         method: "DELETE",
+        url: `/products/${Number(id)}`,
+        body: JSON.stringify({}),
       });
-      const data = await res.json();
-      console.log("data", data);
+      // dispatch({ type: "delete_product", payload: id });
+      dispatch(deletedProduct(Number(id)));
+      await fetchProduct();
     } catch (error) {
       console.log("error", error);
     }
   };
+
   useEffect(() => {
     fetchProduct();
   }, []);
+
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
   return (
     <>
       <div>
-        <style>
-          {`
-      .home-container {
-        padding: 20px;
-        text-align: center;
-        margin : 20px
-      }
-
-      .home-title {
-        font-size: 24px;
-        font-weight: 600;
-        margin-bottom: 20px;
-        color: #333;
-      }
-
-      .product-list {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
-        justify-content: center;
-        padding: 0 10px;
-      }
-
-      .product-card {
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-        padding: 15px;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-        background-color: #fff;
-      }
-
-      .product-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      }
-
-      .product-card p {
-        margin: 6px 0;
-        color: #444;
-        text-align: left;
-      }
-
-      .product-actions {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 10px;
-      }
-
-      button {
-        background-color: #007bff;
-        border: none;
-        color: white;
-        padding: 8px 12px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 14px;
-        transition: background-color 0.2s ease;
-      }
-
-      button:hover {
-        background-color: #0056b3;
-      }
-
-      button:first-child {
-        background-color: #dc3545;
-      }
-
-      button:first-child:hover {
-        background-color: #a71d2a;
-      }
-
-      @media (max-width: 600px) {
-        .home-title {
-          font-size: 20px;
-        }
-
-        .product-card {
-          padding: 12px;
-        }
-
-        button {
-          font-size: 13px;
-          padding: 6px 10px;
-        }
-      }
-    `}
-        </style>
-
         <div className="home-container">
           <div className="home-title">All Products with Details</div>
           <div>
-            <style>
-              {`
-      .product-list {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-        padding: 20px;
-      }
-
-      .product-card {
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-        padding: 15px;
-        background-color: #fff;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-      }
-
-      .product-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      }
-
-      .product-card p {
-        margin: 6px 0;
-        color: #333;
-        text-align: left;
-      }
-
-      .product-actions {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 10px;
-      }
-
-      button {
-        background-color: #007bff;
-        border: none;
-        color: white;
-        padding: 8px 12px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 14px;
-        transition: background-color 0.2s ease;
-      }
-
-      button:hover {
-        background-color: #0056b3;
-      }
-
-      button:first-child {
-        background-color: #dc3545;
-      }
-
-      button:first-child:hover {
-        background-color: #a71d2a;
-      }
-
-      /* ✅ Responsive breakpoints */
-      @media (max-width: 1024px) {
-        .product-list {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }
-
-      @media (max-width: 600px) {
-        .product-list {
-          grid-template-columns: repeat(1, 1fr);
-        }
-
-        .product-card {
-          padding: 12px;
-        }
-
-        button {
-          font-size: 13px;
-          padding: 6px 10px;
-        }
-      }
-    `}
-            </style>
-
             <div className="product-list">
-              {products ? (
+              {products.length > 0 ? (
                 products.map((product) => (
                   <div
                     key={crypto.randomUUID()}
@@ -225,7 +86,14 @@ const Home = () => {
                       <strong>Description:</strong> {product.description}
                     </p>
                     <div className="product-actions">
-                      <button onClick={deleteProduct}>Delete</button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          deleteProduct(product.id);
+                        }}
+                      >
+                        Delete
+                      </button>
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
@@ -238,7 +106,7 @@ const Home = () => {
                   </div>
                 ))
               ) : (
-                <div>Loading...</div>
+                <div>No Data Found</div>
               )}
             </div>
           </div>

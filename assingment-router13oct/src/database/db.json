@@ -1,106 +1,160 @@
 {
   "products": [
     {
-      "id": "4",
-      "name": "USB-C Charger",
-      "price": 18.75,
-      "description": "Fast charging adapter"
+      "id": "31",
+      "name": "56 gfvdrtg",
+      "price": "445",
+      "description": "fdrseg"
     },
     {
-      "id": "5",
-      "name": "Laptop Stand",
-      "price": 25,
-      "description": "Ergonomic aluminum stand"
+      "id": "32",
+      "name": "Hair Dryer",
+      "price": "75",
+      "description": "Professional ionic hair dryer"
     },
     {
-      "id": "6",
-      "name": "Bluetooth Speaker",
-      "price": 35.99,
-      "description": "Portable and loud"
-    },
-    {
-      "id": "7",
-      "name": "Smartwatch",
-      "price": 60.49,
-      "description": "Tracks fitness and notifications"
-    },
-    {
-      "id": "8",
-      "name": "HD Webcam",
-      "price": 40,
-      "description": "1080p video clarity"
-    },
-    {
-      "id": "9",
-      "name": "Portable SSD",
-      "price": 79.99,
-      "description": "1TB high-speed storage"
-    },
-    {
-      "id": "10",
-      "name": "Wireless Earbuds",
-      "price": 29.5,
-      "description": "Noise-cancelling and compact"
-    },
-    {
-      "id": "11",
-      "name": "Smart LED Bulb",
-      "price": 12.99,
-      "description": "Color-changing via app"
-    },
-    {
-      "id": "12",
+      "id": "33",
       "name": "Action Camera",
-      "price": 99,
-      "description": "4K recording and waterproof"
+      "price": "130",
+      "description": "4K waterproof sports camera"
     },
     {
-      "id": "13",
-      "name": "External Hard Drive",
-      "price": 65.25,
-      "description": "2TB USB 3.0 drive"
+      "id": "34",
+      "name": "Tripod Stand",
+      "price": "28",
+      "description": "Adjustable tripod for camera and phone"
     },
     {
-      "id": "14",
-      "name": "Graphic Tablet",
-      "price": 50,
-      "description": "Perfect for digital art"
+      "id": "35",
+      "name": "LED Strip Lights",
+      "price": "20",
+      "description": "RGB LED lights with remote control"
     },
     {
-      "id": "15",
-      "name": "Gaming Chair",
-      "price": 120,
-      "description": "Ergonomic and adjustable"
+      "id": "36",
+      "name": "Electric Scooter",
+      "price": "499",
+      "description": "Foldable e-scooter with 25km range"
     },
     {
-      "id": "16",
-      "name": "VR Headset",
-      "price": 199.99,
-      "description": "Immersive virtual experience"
+      "id": "37",
+      "name": "Smart Thermostat",
+      "price": "180",
+      "description": "WiFi-enabled home temperature control"
     },
     {
-      "id": "17",
-      "name": "Wireless Keyboard",
-      "price": 22.49,
-      "description": "Compact and quiet"
+      "id": "38",
+      "name": "Air Purifier",
+      "price": "160",
+      "description": "HEPA filter purifier for large rooms"
     },
     {
-      "id": "18",
-      "name": "Monitor Stand",
-      "price": 27.99,
-      "description": "Adjustable desk riser"
+      "id": "39",
+      "name": "Gaming Controller",
+      "price": "70",
+      "description": "Wireless controller compatible with PC"
     },
     {
-      "id": "19",
-      "name": "HDMI Cable",
-      "price": 8.99,
-      "description": "Supports 4K resolution"
+      "id": "40",
+      "name": "Smart Doorbell",
+      "price": "130",
+      "description": "Video doorbell with motion detection"
     },
     {
-      "id": "20",
-      "name": "Power Bank",
-      "price": 24.99,
-      "description": "10000mAh fast charging"
+      "id": "41",
+      "name": "Portable Coffee Maker",
+      "price": "65",
+      "description": "Travel espresso machine"
+    },
+    {
+      "id": "42",
+      "name": "Laptop Stand",
+      "price": "35",
+      "description": "Adjustable aluminum laptop stand"
+    },
+    {
+      "id": "43",
+      "name": "Smart Air Fryer",
+      "price": "140",
+      "description": "App-controlled 5L air fryer"
+    },
+    {
+      "id": "44",
+      "name": "Mini Refrigerator",
+      "price": "220",
+      "description": "Compact fridge for office or dorm"
+    },
+    {
+      "id": "45",
+      "name": "Desk Organizer",
+      "price": "25",
+      "description": "Multi-section bamboo desk organizer"
+    },
+    {
+      "id": "46",
+      "name": "HD Webcam",
+      "price": "50",
+      "description": "1080p webcam with built-in mic"
+    },
+    {
+      "id": "47",
+      "name": "USB Hub",
+      "price": "22",
+      "description": "4-port USB 3.0 hub"
+    },
+    {
+      "id": "48",
+      "name": "Portable Power Station",
+      "price": "300",
+      "description": "Rechargeable backup power supply"
+    },
+    {
+      "id": "49",
+      "name": "Wireless Charging Pad",
+      "price": "30",
+      "description": "10W fast charging Qi pad"
+    },
+    {
+      "id": "50",
+      "name": "Digital Alarm Clock",
+      "price": "20",
+      "description": "LED clock with temperature display"
+    },
+    {
+      "id": "5d05",
+      "name": "tv hd",
+      "price": "1223",
+      "description": "wecf"
+    },
+    {
+      "id": "0cd5",
+      "name": "yt bike",
+      "price": "2000",
+      "description": "sports bike"
+    },
+    {
+      "id": "83",
+      "name": "ewrr",
+      "price": "554",
+      "description": "dsg"
+    },
+    {
+      "id": "823",
+      "name": "qqqqqqqqqqqqqqqq",
+      "price": "2334",
+      "description": "yyyyyyyy"
+    },
+    {
+      "id": "816",
+      "name": "hocky",
+      "price": "12",
+      "description": "play hockey"
+    },
+    {
+      "id": "165",
+      "name": "bat ",
+      "price": "3",
+      "description": "xdaf "
     }
   ]
 }

@@ -1,0 +1,378 @@
+{
+  "users": [
+    {
+      "id": "c628",
+      "username": "peter",
+      "password": "1234",
+      "isLogin": false,
+      "favorites": [
+        null
+      ]
+    },
+    {
+      "id": "dce3",
+      "username": "jenny",
+      "password": "1234",
+      "isLogin": false,
+      "favorites": [
+        {
+          "Title": "Annabelle",
+          "Year": "2014",
+          "Rated": "R",
+          "Released": "03 Oct 2014",
+          "Runtime": "99 min",
+          "Genre": "Horror, Mystery, Thriller",
+          "Director": "John R. Leonetti",
+          "Writer": "Gary Dauberman",
+          "Actors": "Ward Horton, Annabelle Wallis, Alfre Woodard",
+          "Plot": "A couple begins to experience terrifying supernatural occurrences involving a vintage doll shortly after their home is invaded by satanic cultists.",
+          "Language": "English",
+          "Country": "United States",
+          "Awards": "3 wins & 7 nominations total",
+          "Poster": "https://m.media-amazon.com/images/M/MV5BNjkyMDU5ZWQtZDhkOC00ZWFjLWIyM2MtZWFhMDUzNjdlNzU2XkEyXkFqcGc@._V1_SX300.jpg",
+          "Ratings": [
+            {
+              "Source": "Internet Movie Database",
+              "Value": "5.5/10"
+            },
+            {
+              "Source": "Rotten Tomatoes",
+              "Value": "28%"
+            },
+            {
+              "Source": "Metacritic",
+              "Value": "37/100"
+            }
+          ],
+          "Metascore": "37",
+          "imdbRating": "5.5",
+          "imdbVotes": "186,283",
+          "imdbID": "tt3322940",
+          "Type": "movie",
+          "DVD": "N/A",
+          "BoxOffice": "$84,284,252",
+          "Production": "N/A",
+          "Website": "N/A",
+          "Response": "True"
+        },
+        {
+          "Title": "American Horror Story",
+          "Year": "2011–",
+          "Rated": "TV-MA",
+          "Released": "05 Oct 2011",
+          "Runtime": "60 min",
+          "Genre": "Drama, Horror, Sci-Fi",
+          "Director": "N/A",
+          "Writer": "Brad Falchuk, Ryan Murphy, Halley Feiffer",
+          "Actors": "Lady Gaga, Kathy Bates, Angela Bassett",
+          "Plot": "An anthology horror drama series centering on different characters and locations, showcasing different aspects of horror. Created and produced by Ryan Murphy and Brad Falchuk.",
+          "Language": "English",
+          "Country": "United States",
+          "Awards": "Won 17 Primetime Emmys. 132 wins & 412 nominations total",
+          "Poster": "https://m.media-amazon.com/images/M/MV5BNzJjZTg0ZmMtMTg0Ny00NzYxLWFjMWMtMWFiYmNkMTNjZGMyXkEyXkFqcGc@._V1_SX300.jpg",
+          "Ratings": [
+            {
+              "Source": "Internet Movie Database",
+              "Value": "7.9/10"
+            }
+          ],
+          "Metascore": "N/A",
+          "imdbRating": "7.9",
+          "imdbVotes": "356,801",
+          "imdbID": "tt1844624",
+          "Type": "series",
+          "totalSeasons": "13",
+          "Response": "True"
+        }
+      ]
+    },
+    {
+      "id": "b5b0",
+      "username": "kety",
+      "password": "1234",
+      "isLogin": false,
+      "favorites": [
+        {
+          "Title": "American Horror Story",
+          "Year": "2011–",
+          "Rated": "TV-MA",
+          "Released": "05 Oct 2011",
+          "Runtime": "60 min",
+          "Genre": "Drama, Horror, Sci-Fi",
+          "Director": "N/A",
+          "Writer": "Brad Falchuk, Ryan Murphy, Halley Feiffer",
+          "Actors": "Lady Gaga, Kathy Bates, Angela Bassett",
+          "Plot": "An anthology horror drama series centering on different characters and locations, showcasing different aspects of horror. Created and produced by Ryan Murphy and Brad Falchuk.",
+          "Language": "English",
+          "Country": "United States",
+          "Awards": "Won 17 Primetime Emmys. 132 wins & 412 nominations total",
+          "Poster": "https://m.media-amazon.com/images/M/MV5BNzJjZTg0ZmMtMTg0Ny00NzYxLWFjMWMtMWFiYmNkMTNjZGMyXkEyXkFqcGc@._V1_SX300.jpg",
+          "Ratings": [
+            {
+              "Source": "Internet Movie Database",
+              "Value": "7.9/10"
+            }
+          ],
+          "Metascore": "N/A",
+          "imdbRating": "7.9",
+          "imdbVotes": "356,801",
+          "imdbID": "tt1844624",
+          "Type": "series",
+          "totalSeasons": "13",
+          "Response": "True"
+        }
+      ]
+    },
+    {
+      "id": "04c1",
+      "username": "admin@123",
+      "password": "1234",
+      "isLogin": false,
+      "favorites": [
+        {
+          "Title": "Inception",
+          "Year": "2010",
+          "Rated": "PG-13",
+          "Released": "16 Jul 2010",
+          "Runtime": "148 min",
+          "Genre": "Action, Adventure, Sci-Fi",
+          "Director": "Christopher Nolan",
+          "Writer": "Christopher Nolan",
+          "Actors": "Leonardo DiCaprio, Joseph Gordon-Levitt, Elliot Page",
+          "Plot": "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O., but his tragic past may doom the project and his team to disaster.",
+          "Language": "English, Japanese, French",
+          "Country": "United States, United Kingdom",
+          "Awards": "Won 4 Oscars. 159 wins & 220 nominations total",
+          "Poster": "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg",
+          "Ratings": [
+            {
+              "Source": "Internet Movie Database",
+              "Value": "8.8/10"
+            },
+            {
+              "Source": "Rotten Tomatoes",
+              "Value": "87%"
+            },
+            {
+              "Source": "Metacritic",
+              "Value": "74/100"
+            }
+          ],
+          "Metascore": "74",
+          "imdbRating": "8.8",
+          "imdbVotes": "2,743,035",
+          "imdbID": "tt1375666",
+          "Type": "movie",
+          "DVD": "N/A",
+          "BoxOffice": "$292,587,330",
+          "Production": "N/A",
+          "Website": "N/A",
+          "Response": "True"
+        },
+        {
+          "Title": "Scudda Hoo! Scudda Hay!",
+          "Year": "1948",
+          "Rated": "Approved",
+          "Released": "23 Sep 1948",
+          "Runtime": "95 min",
+          "Genre": "Comedy, Drama, Romance",
+          "Director": "F. Hugh Herbert",
+          "Writer": "F. Hugh Herbert, George Agnew Chamberlain",
+          "Actors": "June Haver, Lon McCallister, Walter Brennan",
+          "Plot": "In 1948 rural America, two stepbrothers compete for the same gal and the younger brother buys two untamed mules for work projects while the older brother tries to sabotage him.",
+          "Language": "English",
+          "Country": "United States",
+          "Awards": "N/A",
+          "Poster": "https://m.media-amazon.com/images/M/MV5BY2Q0NGIwOTEtOTEwZC00YTQzLTgwM2QtNjhkNDcxODJhOGI1XkEyXkFqcGc@._V1_SX300.jpg",
+          "Ratings": [
+            {
+              "Source": "Internet Movie Database",
+              "Value": "5.9/10"
+            }
+          ],
+          "Metascore": "N/A",
+          "imdbRating": "5.9",
+          "imdbVotes": "416",
+          "imdbID": "tt0040762",
+          "Type": "movie",
+          "DVD": "N/A",
+          "BoxOffice": "N/A",
+          "Production": "N/A",
+          "Website": "N/A",
+          "Response": "True"
+        },
+        {
+          "Title": "Scream",
+          "Year": "1996",
+          "Rated": "R",
+          "Released": "20 Dec 1996",
+          "Runtime": "111 min",
+          "Genre": "Horror, Mystery",
+          "Director": "Wes Craven",
+          "Writer": "Kevin Williamson",
+          "Actors": "Neve Campbell, Courteney Cox, David Arquette",
+          "Plot": "A masked killer targets a past victim's daughter.",
+          "Language": "English",
+          "Country": "United States",
+          "Awards": "12 wins & 11 nominations total",
+          "Poster": "https://m.media-amazon.com/images/M/MV5BMjA2NjU5MTg5OF5BMl5BanBnXkFtZTgwOTkyMzQxMDE@._V1_SX300.jpg",
+          "Ratings": [
+            {
+              "Source": "Internet Movie Database",
+              "Value": "7.4/10"
+            },
+            {
+              "Source": "Rotten Tomatoes",
+              "Value": "78%"
+            },
+            {
+              "Source": "Metacritic",
+              "Value": "66/100"
+            }
+          ],
+          "Metascore": "66",
+          "imdbRating": "7.4",
+          "imdbVotes": "425,175",
+          "imdbID": "tt0117571",
+          "Type": "movie",
+          "DVD": "N/A",
+          "BoxOffice": "$103,046,663",
+          "Production": "N/A",
+          "Website": "N/A",
+          "Response": "True"
+        },
+        {
+          "Title": "Insidious",
+          "Year": "2010",
+          "Rated": "PG-13",
+          "Released": "01 Apr 2011",
+          "Runtime": "103 min",
+          "Genre": "Horror, Mystery, Thriller",
+          "Director": "James Wan",
+          "Writer": "Leigh Whannell",
+          "Actors": "Patrick Wilson, Rose Byrne, Ty Simpkins",
+          "Plot": "A family looks to prevent evil spirits from trapping their comatose child in a realm called The Further.",
+          "Language": "English",
+          "Country": "United States, Canada",
+          "Awards": "8 wins & 16 nominations total",
+          "Poster": "https://m.media-amazon.com/images/M/MV5BMTYyOTAxMDA0OF5BMl5BanBnXkFtZTcwNzgwNTc1NA@@._V1_SX300.jpg",
+          "Ratings": [
+            {
+              "Source": "Internet Movie Database",
+              "Value": "6.8/10"
+            },
+            {
+              "Source": "Rotten Tomatoes",
+              "Value": "66%"
+            },
+            {
+              "Source": "Metacritic",
+              "Value": "52/100"
+            }
+          ],
+          "Metascore": "52",
+          "imdbRating": "6.8",
+          "imdbVotes": "357,535",
+          "imdbID": "tt1591095",
+          "Type": "movie",
+          "DVD": "N/A",
+          "BoxOffice": "$54,009,150",
+          "Production": "N/A",
+          "Website": "N/A",
+          "Response": "True"
+        },
+        {
+          "adult": false,
+          "backdrop_path": "/n53EPBWZiz69sYzNDZmamYHdo6Q.jpg",
+          "belongs_to_collection": null,
+          "budget": 65000000,
+          "genres": [
+            {
+              "id": 35,
+              "name": "Comedy"
+            }
+          ],
+          "homepage": "",
+          "id": 12133,
+          "imdb_id": "tt0838283",
+          "origin_country": [
+            "US"
+          ],
+          "original_language": "en",
+          "original_title": "Step Brothers",
+          "overview": "Brennan Huff and Dale Doback might be grown men. But that doesn't stop them from living at home and turning into jealous, competitive stepbrothers when their single parents marry. Brennan's constant competition with Dale strains his mom's marriage to Dale's dad, leaving everyone to wonder whether they'll ever see eye to eye.",
+          "popularity": 7.5637,
+          "poster_path": "/tY2FpgzPVx92JrYveWt4bn3cMyD.jpg",
+          "production_companies": [
+            {
+              "id": 5,
+              "logo_path": "/71BqEFAF4V3qjjMPCpLuyJFB9A.png",
+              "name": "Columbia Pictures",
+              "origin_country": "US"
+            },
+            {
+              "id": 748,
+              "logo_path": null,
+              "name": "Mosaic Media Group",
+              "origin_country": "US"
+            },
+            {
+              "id": 4740,
+              "logo_path": "/20IuOPEwlHRXnn0MTOsEmw0wcql.png",
+              "name": "Gary Sanchez Productions",
+              "origin_country": "US"
+            },
+            {
+              "id": 7295,
+              "logo_path": "/5MYE96QiE5a5oFhXxFb4y8ILSpw.png",
+              "name": "Relativity Media",
+              "origin_country": "US"
+            },
+            {
+              "id": 10105,
+              "logo_path": "/bN4tiAS8oNlHhIqq66KBPQ1Ekqh.png",
+              "name": "Apatow Productions",
+              "origin_country": "US"
+            }
+          ],
+          "production_countries": [
+            {
+              "iso_3166_1": "US",
+              "name": "United States of America"
+            }
+          ],
+          "release_date": "2008-07-25",
+          "revenue": 128100000,
+          "runtime": 98,
+          "spoken_languages": [
+            {
+              "english_name": "English",
+              "iso_639_1": "en",
+              "name": "English"
+            },
+            {
+              "english_name": "Spanish",
+              "iso_639_1": "es",
+              "name": "Español"
+            }
+          ],
+          "status": "Released",
+          "tagline": "They grow up so fast.",
+          "title": "Step Brothers",
+          "video": false,
+          "vote_average": 6.556,
+          "vote_count": 3261
+        }
+      ]
+    },
+    {
+      "id": "02bf",
+      "username": "piyush@123",
+      "password": "1234",
+      "isLogin": true,
+      "favorites": [
+        null
+      ]
+    }
+  ]
+}

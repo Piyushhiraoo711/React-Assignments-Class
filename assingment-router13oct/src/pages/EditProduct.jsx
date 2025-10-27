@@ -1,24 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import useFetch from "../customhooks/useFetchProduct";
+import { AppContext } from "../contextAPI/AppContext";
+import { useDispatch, useSelector } from "react-redux";
+import { getSelectedProduct, editProduct } from "../products/productSlice";
 
 const Edit = () => {
   const { id } = useParams();
   const numericId = Number(id);
   const navigate = useNavigate();
-  const [product, setProduct] = useState([]);
+  const currentProduct = useSelector((state) => state.products.currentProduct);
+  const dispatch = useDispatch();
+  // const [product, setProduct] = useState([]);
+  // const { state, dispatch } = useContext(AppContext);
   const [updatedProduct, setUpdatedProduct] = useState({
     name: "",
     price: "",
     description: "",
   });
-  console.log("product_id", id);
 
   const fetchProduct = async () => {
     try {
-      const res = await fetch(`http://localhost:3000/products/${numericId}`);
-      console.log("res", res);
-      const data = await res.json();
-      setProduct(data);
+      const data = await useFetch({
+        method: "GET",
+        url: `/products/${numericId}`,
+      });
+      // setProduct(data);
+      // dispatch({ type: "get_selected_product", payload: data });
+      dispatch(getSelectedProduct(data));
+      console.log("current product", data);
     } catch (error) {
       console.log("error", error);
     }
@@ -31,22 +41,21 @@ const Edit = () => {
       ...prevDetails,
       [name]: value,
     }));
+    console.log("updated product", updatedProduct);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("updatedProduct", updatedProduct);
     try {
-      const res = await fetch(`http://localhost:3000/products/${numericId}`, {
+      const data = await useFetch({
         method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        url: `/products/${numericId}`,
         body: JSON.stringify(updatedProduct),
       });
-      const data = await res.json();
-      console.log("data", data);
-      alert("Product Updated Successfully");
+      // console.log("updated data", data);
+      // dispatch({ type: "edit_product", payload: data });
+      dispatch(editProduct(data));
+      navigate("/");
     } catch (error) {
       console.log("error", error);
     }
@@ -147,38 +156,34 @@ const Edit = () => {
       }
     `}
         </style>
-
+        {console.log("currentProduct", currentProduct)}
         <div className="edit-container">
           <h2>Edit the Product</h2>
 
           <form onSubmit={handleSubmit} className="edit-form">
             <input
               type="text"
-              placeholder={product.name}
+              placeholder={currentProduct?.name}
               name="name"
               value={updatedProduct.name}
               onChange={handleChange}
             />
             <input
               type="number"
-              placeholder={product.price}
+              placeholder={currentProduct?.price}
               name="price"
-              value={updatedProduct.price}
+              value={updatedProduct?.price}
               onChange={handleChange}
             />
             <input
               type="text"
-              placeholder={product.description}
+              placeholder={currentProduct?.description}
               name="description"
-              value={updatedProduct.description}
+              value={updatedProduct?.description}
               onChange={handleChange}
             />
             <button type="submit">Update Product</button>
           </form>
-
-          <button className="back-btn" onClick={() => navigate("/")}>
-            Back
-          </button>
         </div>
       </div>
     </>

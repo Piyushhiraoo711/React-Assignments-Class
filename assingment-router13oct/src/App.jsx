@@ -1,44 +1,58 @@
-import { Route, Routes } from "react-router-dom";
-import "./App.css";
-import Home from "./pages/Home";
-import { Navbar } from "./components/Navbar";
-import Edit from "./pages/EditProduct";
-import Login from "./pages/Login";
-import Addproduct from "./pages/AddProduct";
-import ProductDetails from "./pages/ProductDetails";
-import { useEffect, useState } from "react";
-import { AppContext } from "./contextAPI/appContext";
+import React, { useState, useEffect } from "react";
+import { AppProvider } from "./contextAPI/AppContext";
+import { getUser, saveUser } from "./utils/localStorage";
 
 function App() {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
   const [isLogged, setIsLogged] = useState(false);
-  const setUserDetails = {
-    username: "admin",
-    password: "1234",
-  };
+
+  // const handleLogin = (username, password, isLogin) => {
+  //   const userData = { username, password, isLogin };
+  //   setUser(userData);
+  //   setIsLogged(true);
+  //   saveUser(userData);
+  // };
+
+  // const handleSignup = (username, password, isLogin) => {
+  //   const userData = { username, password, isLogin };
+  //   setUser(userData);
+  //   setIsLogged(true);
+  //   saveUser(userData);
+  //   navigate("/");
+  // };
+
+  // const handleLogout = () => {
+  //   console.log("logout");
+  //   setUser(null);
+  //   setIsLogged(false);
+  //   const user = getUser();
+  //   if (user) {
+  //     const updatedUser = { ...user, isLogin: false };
+  //     saveUser(updatedUser);
+  //   }
+  // };
+
+  // const value = {
+  //   user,
+  //   isLogged,
+  //   handleLogin,
+  //   handleLogout,
+  //   handleSignup,
+  // };
 
   useEffect(() => {
-    try {
-      localStorage.setItem("user", setUserDetails);
-    } catch (error) {
-      console.log(error);
+    const storedUser = getUser();
+    if (storedUser && storedUser.isLogin) {
+      setUser(JSON.stringify(storedUser));
+      setIsLogged(true);
+      // saveUser()
+    } else {
+      setUser(null);
+      setIsLogged(false);
     }
-  });
+  }, []);
 
-  return (
-    <>
-      <AppContext value={(user, isLogged, setUserDetails)}>
-        <Navbar />
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/edit/:id" element={<Edit />} />
-          <Route path="/product/:id" element={<ProductDetails />} />
-          <Route path="/add/products" element={<Addproduct />} />
-        </Routes>
-      </AppContext>
-    </>
-  );
+  return <AppProvider />;
 }
 
 export default App;

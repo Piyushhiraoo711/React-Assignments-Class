@@ -1,18 +1,52 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import useFetch from "../customhooks/useFetchProduct";
+import { AppContext } from "../contextAPI/AppContext";
+import { useDispatch, useSelector } from "react-redux";
+import { deletedProduct, getSelectedProduct } from "../products/productSlice";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const numericId = Number(id);
-  const [product, setProduct] = useState({});
+  // const { state, dispatch } = useContext(AppContext);
+  // const [product, setProduct] = useState({});
   const navigate = useNavigate();
+
+  const products = useSelector((state) => state.products.currentProduct);
+  const dispatch = useDispatch();
 
   const fetchProduct = async () => {
     try {
-      const res = await fetch(`http://localhost:3000/products/${numericId}`);
-      console.log("res", res);
-      const data = await res.json();
-      setProduct(data);
+      const data = await useFetch({
+        method: "GET",
+        url: `/products/${numericId}`,
+      });
+
+      if (data) {
+        console.log("data", data);
+        // setProduct(data);
+        // dispatch({ type: "get_selected_product", payload: data });
+
+        dispatch(getSelectedProduct(data));
+      } else {
+        console.log("error", error);
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
+  const deleteProduct = async (id) => {
+    try {
+      const data = await useFetch({
+        method: "DELETE",
+        url: `/products/${Number(id)}`,
+        body: JSON.stringify({}),
+      });
+      if (data) {
+        dispatch(deletedProduct(Number(data.id)));
+        navigate("/");
+      }
     } catch (error) {
       console.log("error", error);
     }
@@ -115,36 +149,26 @@ const ProductDetails = () => {
       }
     `}
         </style>
-
+        {/* {console.log("products qedf ", products)} */}
         <div className="product-details-container">
           <h1>Product Details</h1>
-          {product ? (
+          {products ? (
             <div key={crypto.randomUUID()} className="product-card">
               <p>
-                <strong>Name:</strong> {product.name}
+                <strong>Name:</strong> {products?.name}
               </p>
               <p>
-                <strong>Price:</strong> ${product.price}
+                <strong>Price:</strong> ${products?.price}
               </p>
               <p>
-                <strong>Description:</strong> {product.description}
+                <strong>Description:</strong> {products?.description}
               </p>
             </div>
           ) : (
             <h2>Loading...</h2>
           )}
-
           <div className="product-actions">
-            <button
-              onClick={() => {
-                fetch(`http://localhost:3000/products/${numericId}`, {
-                  method: "DELETE",
-                });
-                navigate("/");
-              }}
-            >
-              Delete
-            </button>
+            <button onClick={() => deleteProduct(products.id)}>Delete</button>
             <button onClick={() => navigate("/edit/" + numericId)}>Edit</button>
             <button onClick={() => navigate("/")}>Back</button>
           </div>

@@ -1,11 +1,19 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import useFetch from "../customhooks/useFetchProduct";
+
+import { AppContext } from "../contextAPI/AppContext";
+import { useDispatch, useSelector } from "react-redux";
+import { addProducts } from "../products/productSlice";
 
 function Addproduct() {
   const navigate = useNavigate();
+  // const { state, dispatch } = useContext(AppContext);
+  const products = useSelector((state) => state.products.products);
+  const dispatch = useDispatch();
   const [addProduct, setAddProduct] = useState({
-    id: Math.floor(Math.random() * 1000),
+    id: String(Math.floor(Math.random() * 1000)),
     name: "",
     price: "",
     description: "",
@@ -23,23 +31,21 @@ function Addproduct() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(addProduct);
-    await axios
-      .post(
-        `http://localhost:3000/products`,
-        {
+    try {
+      const data = await useFetch({
+        method: "POST",
+        url: `/products`,
+        body: JSON.stringify({
           ...addProduct,
-        },
-        { headers: { "Content-Type": "application/json " } }
-      )
-      .then((res) => {
-        console.log("res", res);
-        alert("Product Added Successfully");
-      })
-      .catch((err) => {
-        console.log("err", err);
-        alert("Something went wrong");
+        }),
       });
-    navigate("/");
+      // dispatch({ type: "add_product", payload: addProduct });
+      dispatch(addProducts(data));
+      console.log("res", data);
+      navigate("/");
+    } catch (error) {
+      console.log("error", error);
+    }
   };
 
   return (
@@ -48,7 +54,7 @@ function Addproduct() {
         {`
       .add-product-container {
         max-width: 600px;
-        margin: 100px auto 40px auto; /* spacing for fixed navbar */
+        margin: 100px auto 40px auto;
         background-color: #ffffff;
         padding: 30px 25px;
         border-radius: 12px;

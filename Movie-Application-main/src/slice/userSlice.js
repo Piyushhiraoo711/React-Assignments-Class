@@ -10,11 +10,9 @@ export const signupUser = createAsyncThunk(
   "users/signupUser",
   async (userData, { rejectWithValue }) => {
     try {
-     
       const res = await fetch(`${API_URL}?username=${userData.username}`);
       const existing = await res.json();
       if (existing.length > 0) return rejectWithValue("User already exists");
-
 
       const response = await fetch(API_URL, {
         method: "POST",
@@ -23,7 +21,6 @@ export const signupUser = createAsyncThunk(
       });
       const newUser = await response.json();
 
- 
       const usersRes = await fetch(API_URL);
       const allUsers = await usersRes.json();
       await Promise.all(
@@ -36,7 +33,6 @@ export const signupUser = createAsyncThunk(
         )
       );
 
-
       const loginRes = await fetch(`${API_URL}/${newUser.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -44,7 +40,6 @@ export const signupUser = createAsyncThunk(
       });
       const loggedInUser = await loginRes.json();
 
-   
       const updatedUsers = allUsers
         .filter((u) => u.id !== loggedInUser.id)
         .concat(loggedInUser);
@@ -69,7 +64,6 @@ export const loginUser = createAsyncThunk(
       );
       if (!user) return rejectWithValue("Invalid username or password");
 
-
       await Promise.all(
         users.map((u) =>
           fetch(`${API_URL}/${u.id}`, {
@@ -87,7 +81,6 @@ export const loginUser = createAsyncThunk(
       });
       const updatedUser = await loginRes.json();
 
-      
       const updatedUsers = users.map((u) =>
         u.id === updatedUser.id ? updatedUser : { ...u, isLogin: false }
       );
@@ -133,9 +126,7 @@ export const addFavorite = createAsyncThunk(
 
       if (!currentUser) return rejectWithValue("User not logged in");
 
-      const exists = currentUser.favorites?.some(
-        (m) => m.id === movie.id
-      );
+      const exists = currentUser.favorites?.some((m) => m.id === movie.id);
       if (exists) return currentUser;
 
       const updatedFavorites = currentUser.favorites
@@ -199,6 +190,79 @@ export const removeFavorite = createAsyncThunk(
   }
 );
 
+export const addRecentMovie = createAsyncThunk(
+  "user/addRecentMovie",
+  async (movie, { getState, rejectWithValue }) => {
+    try {
+      const state = getState();
+      const currentUser = state.user.currentUser;
+
+      if (!currentUser) return rejectWithValue("User not logged in");
+
+      const exists = currentUser.recentAdd?.some((m) => m.id === movie.id);
+      if (exists) return currentUser;
+
+      const updatedRecent = currentUser.recentAdd
+        ? [...currentUser.recentAdd, movie]
+        : [movie];
+
+      const res = await fetch(`http://localhost:3000/users/${currentUser.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ recentAdd: updatedRecent }),
+      });
+
+      const data = await res.json();
+
+      const allUsers = JSON.parse(localStorage.getItem("users")) || [];
+      const updatedUsers = allUsers.map((u) =>
+        u.id === currentUser.id ? { ...data } : u
+      );
+      localStorage.setItem("users", JSON.stringify(updatedUsers));
+      localStorage.setItem("currentUser", JSON.stringify(data));
+
+      return data;
+    } catch (err) {
+      return rejectWithValue(err.message);
+    }
+  }
+);
+
+export const removeRecentMovie = createAsyncThunk(
+  "user/removeRecentMovie",
+  async (movieId, { getState, rejectWithValue }) => {
+    try {
+      const state = getState();
+      const currentUser = state.user.currentUser;
+
+      if (!currentUser) return rejectWithValue("User not logged in");
+
+      const updatedRecent = currentUser.recentAdd?.filter(
+        (m) => m.id !== movieId
+      );
+
+      const res = await fetch(`http://localhost:3000/users/${currentUser.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ recentAdd: updatedRecent }),
+      });
+
+      const data = await res.json();
+
+      const allUsers = JSON.parse(localStorage.getItem("users")) || [];
+      const updatedUsers = allUsers.map((u) =>
+        u.id === currentUser.id ? { ...data } : u
+      );
+      localStorage.setItem("users", JSON.stringify(updatedUsers));
+      localStorage.setItem("currentUser", JSON.stringify(data));
+
+      return data;
+    } catch (err) {
+      return rejectWithValue(err.message);
+    }
+  }
+);
+
 const initialState = {
   users: JSON.parse(localStorage.getItem("users")) || [],
   currentUser:
@@ -210,7 +274,20 @@ const initialState = {
 const userSlice = createSlice({
   name: "users",
   initialState,
-  reducers: {},
+  reducers: {
+    setCurrentUser: (state, action) => {
+      state.currentUser = action.payload;
+    },
+    clearRecentMovies: (state) => {
+      if (state.currentUser) {
+        state.currentUser.recentAdd = [];
+        const updatedUsers = state.users.map((u) =>
+          u.id === state.currentUser.id ? state.currentUser : u
+        );
+        localStorage.setItem("users", JSON.stringify(updatedUsers));
+      }
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(signupUser.pending, (state) => {
@@ -274,7 +351,16 @@ const userSlice = createSlice({
       .addCase(removeFavorite.fulfilled, (state, action) => {
         state.currentUser = action.payload;
       });
+
+    builder
+      .addCase(addRecentMovie.fulfilled, (state, action) => {
+        state.currentUser = action.payload;
+      })
+      .addCase(removeRecentMovie.fulfilled, (state, action) => {
+        state.currentUser = action.payload;
+      });
   },
 });
 
+export const { setCurrentUser, clearRecentMovies } = userSlice.actions;
 export default userSlice.reducer;

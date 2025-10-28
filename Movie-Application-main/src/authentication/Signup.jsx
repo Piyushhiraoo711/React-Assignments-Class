@@ -3,10 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { getUser, saveUser } from "../localStorage/localStorage";
 import { useDispatch } from "react-redux";
 import { signupUser } from "../slice/userSlice";
+import { useTheme } from "../context/ThemeContext";
 
 const Signup = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { theme } = useTheme();
   const [user, setUser] = useState({
     username: "",
     password: "",
@@ -49,15 +51,16 @@ const Signup = () => {
             "url('https://i.pinimg.com/736x/19/8b/2f/198b2f01e73b905772279616eccc7c65.jpg')",
         }}
       >
-        <div className="flex flex-col justify-center items-center w-[40%] h-[40%] bg-black/30 rounded-lg">
-          <h2 className="font-semibold text-white">
-            Enter Your info to Register{" "}
-          </h2>
+        <div
+          className={`flex flex-col justify-center items-center w-[40%] h-[40%] rounded-lg ${
+            theme === "dark"
+              ? "bg-black/30  text-white"
+              : "bg-gray-500 text-black"
+          }`}
+        >
+          <h2 className="font-semibold ">Enter Your info to Register </h2>
           <div className="mt-4 ">
-            <form
-              onSubmit={handleSubmit}
-              className="flex flex-col gap-4 text-white"
-            >
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4 ">
               <input
                 className=" border border-gray-300 rounded-md p-2 w-64  "
                 placeholder="Enter username or email ..."
@@ -87,9 +90,9 @@ const Signup = () => {
               </button>
             </form>
             <div>
-              <p className="mt-2 text-sm text-white">
+              <p className="mt-2 text-sm ">
                 Already have an account?
-                <Link to="/login" className="text-blue-500 underline-none">
+                <Link to="/login" className="text-blue-800 underline-none">
                   Login
                 </Link>
               </p>

@@ -5,11 +5,13 @@ import "swiper/css/autoplay";
 import { Autoplay } from "swiper/modules";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "../context/ThemeContext";
 
 const SwiperSlider = ({ title, movies = [] }) => {
   const swiperRef = useRef(null);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
+  const { theme } = useTheme();
 
   const navigate = useNavigate();
 
@@ -31,13 +33,12 @@ const SwiperSlider = ({ title, movies = [] }) => {
   };
 
   return (
-    <div className="relative bg-black text-white mb-10 w-full">
+    <div className={`relative mb-10 w-full ${theme === "dark" ? "bg-black text-white" : "bg-white text-black"}`}>
       <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mb-4 px-4 sm:px-6">
         {title}
       </h2>
 
       <div className="relative group">
-    
         {!isBeginning && (
           <button
             onClick={handlePrev}
@@ -47,7 +48,6 @@ const SwiperSlider = ({ title, movies = [] }) => {
           </button>
         )}
 
-       
         {!isEnd && (
           <button
             onClick={handleNext}
@@ -80,24 +80,24 @@ const SwiperSlider = ({ title, movies = [] }) => {
           className="px-3 sm:px-5"
         >
           {movies.map((movie) => (
-            <SwiperSlide key={movie.imdbID}>
+            <SwiperSlide key={movie.id}>
               <div
                 className="px-1 sm:px-2 cursor-pointer"
-                onClick={() => navigate(`/movie/${movie.imdbID}`)}
+                onClick={() => navigate(`/movie/${movie.id}`)}
               >
                 <div className="relative">
                   <img
                     src={
-                      movie.Poster && movie.Poster !== "N/A"
-                        ? movie.Poster
+                      movie.poster_path
+                        ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
                         : "/fallback.jpg"
                     }
-                    alt={movie.Title}
+                    alt={movie.title}
                     className="w-full h-64 object-cover rounded-xl hover:scale-105 transition-transform duration-300"
                   />
                 </div>
                 <p className="mt-2 text-center text-xs sm:text-sm truncate px-1">
-                  {movie.Title}
+                  {movie.title}
                 </p>
               </div>
             </SwiperSlide>

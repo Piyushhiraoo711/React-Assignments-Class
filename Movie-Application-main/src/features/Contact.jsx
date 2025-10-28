@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useTheme } from "../context/ThemeContext";
 
 const Contact = () => {
+  const { theme, toggleTheme } = useTheme();
   return (
     <>
-      <div className="flex justify-center items-center flex-col mx-30 h-screen">
+      {console.log(theme)}
+      <div
+        className={`flex justify-center items-center flex-col mx-auto h-screen ${
+          theme === "dark" ? "bg-black text-white" : " bg-white text-black"
+        }`}
+      >
         <h2 className="font-bold my-3">Get in Touch</h2>
         <p>
           Have feedback, suggestions, or facing an issue? We’d love to hear from

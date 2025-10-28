@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../slice/userSlice";
-import { clearSearch, fetchSearchMovies } from "../slice/movieSlice";
+import { clearSearch, fetchSearchMovies } from "../slice/moviesSlice";
+import { useTheme } from "../context/ThemeContext";
 
 const API_KEY = "e32df389c6a214da047b0c9721fa1840";
 
@@ -12,40 +13,13 @@ const Navbar = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
   const { searchMovie } = useSelector((state) => state.movies.searchMovie);
   const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme();
   const handleLogout = async () => {
     if (currentUser) {
       await dispatch(logoutUser(currentUser.id));
       navigate("/login");
     }
   };
-
-  // const handleSearch = async (e) => {
-  //   e.preventDefault();
-
-  //   if (!query.trim()) return alert("Please enter movie name");
-  //   console.log("query", query);
-  //   try {
-  //     const res = await fetch(
-  //       `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(
-  //         query
-  //       )}`
-  //     );
-  //     const data = await res.json();
-  //     console.log("search movies", data.results);
-
-  //     if (data) {
-  //       dispatch(setSearchMovies(data.results));
-  //       setQuery("");
-  //       navigate("/search/movies");
-  //     } else {
-  //       dispatch(clearSearch());
-  //       setQuery("");
-  //       navigate("/404");
-  //     }
-  //   } catch (error) {
-  //     console.log("Error", error);
-  //   }
-  // };
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -62,9 +36,15 @@ const Navbar = () => {
       navigate("/404");
     }
   };
-  
+
   return (
-    <div className="fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-black to-purple-700 text-white shadow-lg">
+    <div
+      className={`fixed top-0 left-0 w-full z-50 bg-gradient-to-r shadow-lg ${
+        theme === "dark"
+          ? "from-black to-purple-700  text-white"
+          : "from-white to-purple-700  text-black"
+      }`}
+    >
       <div className="flex flex-wrap justify-between items-center px-6 md:px-8 py-3 gap-3 md:gap-6">
         <div
           onClick={() => navigate("/")}
@@ -93,6 +73,12 @@ const Navbar = () => {
         </form>
 
         <ul className="flex flex-wrap gap-4 md:gap-6 font-medium justify-center md:justify-end">
+          <button
+            onClick={toggleTheme}
+            className={`px-2 py-1 rounded-md bg-white`}
+          >
+            {theme === "light" ? "🌙" : "☀️"}
+          </button>
           <li className="hover:text-yellow-300 cursor-pointer transition">
             <Link to="/">Home</Link>
           </li>
@@ -105,9 +91,9 @@ const Navbar = () => {
           <li className="hover:text-yellow-300 cursor-pointer transition">
             <Link to="/contact">Contact</Link>
           </li>
-          {/* <li className="hover:text-yellow-300 cursor-pointer transition">
+          <li className="hover:text-yellow-300 cursor-pointer transition">
             <Link to="/profile">Profile</Link>
-          </li> */}
+          </li>
           <li
             onClick={handleLogout}
             className="hover:text-yellow-300 cursor-pointer transition"

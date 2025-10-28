@@ -12,6 +12,7 @@ import SearchMovies from "../features/SearchMovies.jsx";
 import PublicRoute from "../protectedRoutes/PublicRoute .jsx";
 import ProtectedRoute from "../protectedRoutes/ProtectedRoute .jsx";
 import Movies from "../features/Movies.jsx";
+import RecentAdd from "../features/RecentAdd.jsx";
 
 const AppRoutes = () => {
   return (
@@ -62,6 +63,14 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute>
             <MovieDetails />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/movie/recent"
+        element={
+          <ProtectedRoute>
+            <RecentAdd />
           </ProtectedRoute>
         }
       />

@@ -1,37 +1,53 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useTheme } from "../context/ThemeContext";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchByGenre, fetchMovies } from "../slice/moviesSlice";
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [loading, setLoading] = useState(false);
+  const { theme } = useTheme();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [genre, setGenre] = useState("");
+  const { discoverMovies, loading, totalPages } = useSelector(
+    (state) => state.movies
+  );
 
-  const fetchMovies = async (pageNumber) => {
-    setLoading(true);
-    try {
-      const res = await fetch(
-        `https://api.themoviedb.org/3/movie/popular?api_key=e32df389c6a214da047b0c9721fa1840&language=en-US&page=${pageNumber}`
-      );
-      const data = await res.json();
-
-      if (data.results) {
-        setMovies(data.results);
-        setTotalPages(data.total_pages);
-      }
-    } catch (err) {
-      console.error("Error fetching movies:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const genresList = [
+    { id: 28, name: "Action" },
+    { id: 12, name: "Adventure" },
+    { id: 16, name: "Animation" },
+    { id: 35, name: "Comedy" },
+    { id: 80, name: "Crime" },
+    { id: 99, name: "Documentary" },
+    { id: 18, name: "Drama" },
+    { id: 10751, name: "Family" },
+    { id: 14, name: "Fantasy" },
+    { id: 36, name: "History" },
+    { id: 27, name: "Horror" },
+    { id: 10402, name: "Music" },
+    { id: 9648, name: "Mystery" },
+    { id: 10749, name: "Romance" },
+    { id: 878, name: "Science Fiction" },
+    { id: 10770, name: "TV Movie" },
+    { id: 53, name: "Thriller" },
+    { id: 10752, name: "War" },
+    { id: 37, name: "Western" },
+  ];
 
   useEffect(() => {
-    fetchMovies(page);
-  }, [page]);
+    if (genre) {
+      dispatch(fetchByGenre({ genreId: genre, page }));
+    } else {
+      dispatch(fetchMovies(page));
+    }
+  }, [genre, page, dispatch]);
 
   const renderPagination = () => {
     const buttons = [];
-    const maxButtons = 3;
+    const maxButtons = 4;
     let startPage = Math.max(1, page - 1);
     let endPage = Math.min(totalPages, startPage + maxButtons - 1);
 
@@ -81,12 +97,50 @@ const Movies = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white p-6">
+    <div
+      className={`min-h-screen p-6 ${
+        theme === "dark" ? " bg-black text-white" : "bg-white text-black"
+      }`}
+    >
       <h1 className="text-3xl font-bold mb-6">Popular Movies</h1>
       {loading && <p className="text-center">Loading...</p>}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-        {movies.map((movie) => (
-          <div key={movie.id} className="rounded-lg overflow-hidden">
+
+      <div className="mt-20">
+        <div
+          className="lex flex-col sm:flex-row items-center justify-center w-60
+            gap-2 "
+        >
+          <label className="text-center sm:text-left">Sort By :</label>
+          <select
+            onChange={(e) => setGenre(e.target.value)}
+            value={genre}
+            name="genre"
+            className={`p-2 ml-1 border border-white ${
+              theme === "dark" ? "bg-black text-white" : "bg-white text-black"
+            }`}
+          >
+            <option value="" className="">
+              Filter by Genre
+            </option>
+            {genresList.map((g) => (
+              <option
+                className="text-gray-700  dark:text-gray-200 bg-white dark:bg-gray-800"
+                key={g.id}
+                value={g.id}
+              >
+                {g.name}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 mt-4">
+        {discoverMovies.map((movie) => (
+          <div
+            key={movie.id}
+            className="rounded-lg overflow-hidden"
+            onClick={() => navigate(`/movie/${movie.id}`)}
+          >
             <img
               src={
                 movie.poster_path
@@ -94,7 +148,7 @@ const Movies = () => {
                   : "/fallback.jpg"
               }
               alt={movie.title}
-              className="w-full h-[300px] object-cover"
+              className="w-full h-[300px] object-contain bg-black"
             />
             <p
               className="mt-2 text-center font-semibold truncate"

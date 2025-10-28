@@ -1,9 +1,16 @@
 import React from "react";
+import { useTheme } from "../context/ThemeContext";
 
 const About = () => {
+  const { theme, toggleTheme } = useTheme();
+
   return (
     <>
-      <div className="flex justify-center items-center flex-col mx-30 h-screen">
+      <div
+        className={`flex justify-center items-center flex-col mx-auto h-screen ${
+          theme === "dark" ? "bg-black text-white" : "bg-gray-100 text-gray-900"
+        }`}
+      >
         <h2 className="font-bold my-3">About Movie App</h2>
         <p>
           Welcome to Movie App — your personal movie management platform built

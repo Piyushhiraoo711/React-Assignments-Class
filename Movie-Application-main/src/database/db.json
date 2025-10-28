@@ -369,10 +369,18 @@
       "id": "02bf",
       "username": "piyush@123",
       "password": "1234",
-      "isLogin": true,
+      "isLogin": false,
       "favorites": [
         null
       ]
+    },
+    {
+      "id": "b276",
+      "username": "virat@123",
+      "password": "1234",
+      "isLogin": true,
+      "favorites": [],
+      "recentAdd": []
     }
   ]
 }

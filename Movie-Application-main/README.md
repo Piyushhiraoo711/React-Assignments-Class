@@ -16,13 +16,19 @@ This app allows users to explore movies by category, search and filter titles, m
 
 5. Favorites feature — users can save movies they love.
 
+6. Recent Watched Movies sections
+
+7. Filter Movie Categories based on selection like "Action" , "Comedy" , "Documentry" , "Flighting" , "Horror" etc ..
+
 👤 User Authentication
 
 1. Login and Sign Up functionality.
 
-2. User data stored securely in a local db.json file (mock database).
+2. User data stored securely in a local db.json file .
 
 3. Authenticated routes with ProtectedRoute logic.
+
+4. User have favorites and recentAdd movies
 
 💾 Data Persistence
 
@@ -57,13 +63,13 @@ This app allows users to explore movies by category, search and filter titles, m
 8. Framer Motion	Smooth animations and transitions
 
 ⚙️ Installation & Setup
-1️⃣ Clone the repository
+1. Clone the repository
 
-2️⃣ Install dependencies
+2. Install dependencies
 npm install
 
-3️⃣ Start the mock database (if using json-server)
+3. Start the mock database (if using json-server)
 npx json-server --watch src/database/db.json --port 3000
 
-4️⃣ Start the React app
+4. Start the React app
 npm start

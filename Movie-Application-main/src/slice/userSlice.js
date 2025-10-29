@@ -11,11 +11,11 @@ export const signupUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     console.log("dhsjsnd")
     try {
-      console.log(`${API_URL}?username=${userData.username}`)
-      const res = await fetch(`${API_URL}?username=${userData.username}`);
-      const existing = await res.json();
-      console.log("dhsjsnd")
-      if (existing.length > 0) return rejectWithValue("User already exists");
+      // console.log(`${API_URL}?username=${userData.username}`)
+      // const res = await fetch(`${API_URL}?username=${userData.username}`);
+      // const existing = await res.json();
+      // console.log("dhsjsnd")
+      // if (existing.length > 0) return rejectWithValue("User already exists");
 
       const response = await fetch(`https://6901d5ecb208b24affe3e605.mockapi.io/users`, {
         method: "POST",

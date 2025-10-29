@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../slice/userSlice";
 import { clearSearch, fetchSearchMovies } from "../slice/moviesSlice";
 import { useTheme } from "../context/ThemeContext";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const [query, setQuery] = useState("");
@@ -26,10 +27,20 @@ const Navbar = () => {
     const resultAction = await dispatch(fetchSearchMovies(query));
 
     if (fetchSearchMovies.fulfilled.match(resultAction)) {
-      setQuery("");
-      navigate("/search/movies");
+      const movies = resultAction.payload;
+
+      if (movies && movies.length > 0) {
+        console.log("Movies found:", movies);
+        setQuery("");
+        navigate("/search/movies");
+      } else {
+        console.warn("No movies found");
+        setQuery("");
+        navigate("/404");
+        toast.error("No movie found");
+      }
     } else {
-      dispatch(clearSearch());
+      console.error("Error fetching movies:", resultAction.error);
       setQuery("");
       navigate("/404");
     }

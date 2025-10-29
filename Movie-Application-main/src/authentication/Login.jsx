@@ -23,19 +23,26 @@ const Login = () => {
     }));
   };
 
-  const handleLogin = async (username, password) => {
-    try {
-      const resultAction = await dispatch(loginUser({ username, password }));
+const handleLogin = async (username, password) => {
+  try {
+    const resultAction = await dispatch(loginUser({ username, password }));
+    console.log("resultAction", resultAction);
 
-      if (loginUser.fulfilled.match(resultAction)) {
+    if (loginUser.fulfilled.match(resultAction)) {
+      const data = resultAction.payload;
+
+      if (data && data.success) {
         navigate("/");
-      } else {
-        alert(resultAction.payload || "Login failed");
-      }
-    } catch (err) {
-      console.error("Login error:", err);
+        toast.success("Login successful");
+      } 
+    } else {
+      toast.error("Login failed. Please try again.");
     }
-  };
+  } catch (err) {
+    console.error("Login error:", err);
+  }
+};
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -94,7 +101,7 @@ const Login = () => {
 
             <button
               type="submit"
-              className="bg-purple-700 hover:bg-purple-800 text-white rounded-2xl py-2 px-6 mt-2 transition-all duration-300"
+              className="bg-purple-700 hover:bg-purple-800 text-white rounded-2xl py-2 mt-2 transition-all duration-300 w-64 sm:w-72 md:w-80 lg:w-96"
             >
               Login
             </button>

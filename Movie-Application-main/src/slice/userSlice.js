@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 
 const API_URL = "https://6901d5ecb208b24affe3e605.mockapi.io/users";
 
@@ -9,7 +10,6 @@ const saveToLocalStorage = (users) => {
 export const signupUser = createAsyncThunk(
   "users/signupUser",
   async (userData, { rejectWithValue }) => {
-    console.log("dhsjsnd")
     try {
       // console.log(`${API_URL}?username=${userData.username}`)
       // const res = await fetch(`${API_URL}?username=${userData.username}`);
@@ -66,7 +66,7 @@ export const loginUser = createAsyncThunk(
       const user = users.find(
         (u) => u.username === username && u.password === password
       );
-      if (!user) return rejectWithValue("Invalid username or password");
+      if (!user) return toast.error(rejectWithValue("Invalid username or password"));
 
       await Promise.all(
         users.map((u) =>

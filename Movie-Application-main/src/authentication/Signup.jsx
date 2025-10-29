@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { signupUser } from "../slice/userSlice";
 import { useTheme } from "../context/ThemeContext";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -34,11 +35,16 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (user.password !== user.confirmPassword) {
-      alert("Passwords do not match!");
+    if (!user.username) {
+      toast.error("Please enter username");
+    } else if (!user.password) {
+      toast.error("Please enter password");
+    } else if (user.password !== user.confirmPassword) {
+      toast.error("Passwords do not match!");
       return;
+    } else {
+      handleSignup(user.username, user.password, user.isLogin);
     }
-    handleSignup(user.username, user.password, user.isLogin);
     console.log("User Info:", user);
   };
   return (

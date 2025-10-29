@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import NotFound from "../features/NotFound.jsx";
 import {
   addFavorite,
   addRecentMovie,
@@ -55,6 +56,10 @@ const SearchMovies = () => {
 
     setIsFavorite((prev) => !prev);
   };
+
+  // if (!searchMovie) {
+  //   return <NotFound />;
+  // }
 
   useEffect(() => {
     setMovie(...searchMovie);

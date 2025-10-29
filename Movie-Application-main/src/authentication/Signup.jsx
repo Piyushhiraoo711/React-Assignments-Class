@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getUser, saveUser } from "../localStorage/localStorage";
 import { useDispatch } from "react-redux";
 import { signupUser } from "../slice/userSlice";
 import { useTheme } from "../context/ThemeContext";

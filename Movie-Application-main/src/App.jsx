@@ -3,7 +3,8 @@ import "./App.css";
 import { BrowserRouter } from "react-router-dom";
 import AppRoutes from "./routes/AppRoutes.jsx";
 import Navbar from "./features/Navbar.jsx";
-import Footer from "./features/Footer.jsx";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -11,7 +12,17 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <AppRoutes />
-        {/* <Footer /> */}
+        <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       </BrowserRouter>
     </>
   );

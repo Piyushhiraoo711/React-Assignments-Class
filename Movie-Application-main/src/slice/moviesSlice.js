@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 const TMDB_API_KEY = "e32df389c6a214da047b0c9721fa1840";
 const BASE_URL = "https://api.themoviedb.org/3";
 
@@ -133,6 +134,39 @@ export const fetchMovies = createAsyncThunk(
   }
 );
 
+export const fetchMoviesSorted = createAsyncThunk(
+  "movies/fetchMoviesSorted",
+  async (
+    { genreId = "", sortBy = "popularity.desc", page = 1 },
+    { rejectWithValue }
+  ) => {
+    try {
+      const url = `${BASE_URL}/discover/movie?api_key=${TMDB_API_KEY}&language=en-US&page=${page}${
+        genreId ? `&with_genres=${genreId}` : ""
+      }&sort_by=${sortBy}`;
+
+      console.log("Fetching:", url);
+
+      const response = await axios.get(url);
+
+      if (!response.data || !response.data.results) {
+        throw new Error("Invalid data from TMDB");
+      }
+
+      return {
+        results: response.data.results,
+        totalPages: response.data.total_pages,
+        currentPage: page,
+      };
+    } catch (error) {
+      console.error("TMDB fetch failed:", error);
+      return rejectWithValue(
+        error.response?.data?.status_message || error.message
+      );
+    }
+  }
+);
+
 const initialState = {
   popular: JSON.parse(localStorage.getItem("popularMovies")) || [],
   horror: JSON.parse(localStorage.getItem("horrorMovies")) || [],
@@ -242,6 +276,22 @@ const moviesSlice = createSlice({
         state.loading = false;
         state.searchMovie = [];
         state.error = action.payload || "Something went wrong";
+      });
+
+    builder
+      .addCase(fetchMoviesSorted.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchMoviesSorted.fulfilled, (state, action) => {
+        state.loading = false;
+        state.discoverMovies = action.payload.results;
+        state.totalPages = action.payload.totalPages;
+        state.currentPage = action.payload.currentPage;
+      })
+      .addCase(fetchMoviesSorted.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       });
   },
 });

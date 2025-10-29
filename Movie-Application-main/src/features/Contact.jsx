@@ -7,7 +7,7 @@ const Contact = () => {
     <>
       {console.log(theme)}
       <div
-        className={`flex justify-center items-center flex-col mx-auto h-screen ${
+        className={`flex w-full justify-center items-center flex-col mx-auto h-screen ${
           theme === "dark" ? "bg-black text-white" : " bg-white text-black"
         }`}
       >

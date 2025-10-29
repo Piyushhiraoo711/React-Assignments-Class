@@ -12,7 +12,7 @@ const About = () => {
         }`}
       >
         <h2 className="font-bold my-3">About Movie App</h2>
-        <p>
+        <p className="w-[70%]">
           Welcome to Movie App — your personal movie management platform built
           to make exploring and organizing your favorite films effortless and
           fun. This app is powered by the OMDb API and built using React.js,

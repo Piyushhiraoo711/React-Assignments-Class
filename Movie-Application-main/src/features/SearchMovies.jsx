@@ -2,78 +2,85 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { addFavorite, removeFavorite } from "../slice/userSlice";
-import Loader from "../features/Loader";
+import {
+  addFavorite,
+  addRecentMovie,
+  removeFavorite,
+  removeRecentMovie,
+} from "../slice/userSlice";
+import { useTheme } from "../context/ThemeContext";
 
 const SearchMovies = () => {
   const { currentUser, loading } = useSelector((state) => state.user);
+  const { id } = useSelector((state) => state.movies.searchMovie);
   const dispatch = useDispatch();
+  const { theme } = useTheme();
   const [movie, setMovie] = useState(null);
   const navigate = useNavigate();
   const { searchMovie } = useSelector((state) => state.movies);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [isWatchNext, setIsWatchNext] = useState(false);
 
-  useEffect(() => {
-    if (currentUser && selectedMovie) {
-      const isFav = currentUser.favorites?.some(
-        (fav) => fav.id === selectedMovie.id
-      );
-      setIsFavorite(isFav);
-    }
-  }, [currentUser, selectedMovie]);
-
-  const handleFavorite = () => {
+  const handleWatchNext = () => {
+    console.log(currentUser);
     if (!currentUser) {
-      alert("Please log in to add favorites");
-      navigate("/login");
+      alert("Please login to add Watch Next");
       return;
     }
 
-    if (!selectedMovie) {
-      alert("Please select a movie first");
-      return;
-    }
-
-    if (isFavorite) {
-      dispatch(removeFavorite(selectedMovie.id));
+    if (!movie) return;
+    if (isWatchNext) {
+      dispatch(removeRecentMovie(movie.id));
     } else {
-      dispatch(addFavorite(selectedMovie));
+      dispatch(addRecentMovie(movie));
     }
-
-    setIsFavorite(!isFavorite);
+    setIsWatchNext((prev) => !prev);
   };
 
-  // const handleFavorite = () => {
-  //   console.log("current user", currentUser);
-  //   if (!currentUser) {
-  //     alert("Please login to add favorites");
-  //     return;
-  //   }
+  const handleFavorite = () => {
+    console.log(currentUser);
+    if (!currentUser) {
+      alert("Please login to add favorites");
+      return;
+    }
 
-  //   if (!selectedMovie) {
-  //     alert("Please select a movie first");
-  //     return;
-  //   }
-  //   if (isFavorite) {
-  //     dispatch(removeFavorite(selectedMovie.id));
-  //   } else {
-  //     dispatch(addFavorite(selectedMovie));
-  //   }
-  // };
+    if (!movie) return;
 
-  // useEffect(() => {
-  //   if (currentUser && selectedMovie) {
-  //     const isFav = currentUser.favorites?.some(
-  //       (fav) => fav.id === selectedMovie.id
-  //     );
-  //     setIsFavorite(isFav);
-  //   }
-  // }, [currentUser, selectedMovie]);
+    if (isFavorite) {
+      dispatch(removeFavorite(movie.id));
+    } else {
+      dispatch(addFavorite(movie));
+    }
+
+    setIsFavorite((prev) => !prev);
+  };
+
+  useEffect(() => {
+    setMovie(...searchMovie);
+    if (currentUser && Array.isArray(currentUser.favorites)) {
+      const alreadyFavorite = currentUser.favorites.some(
+        (fav) => String(fav.id) === String(id)
+      );
+      setIsFavorite(alreadyFavorite);
+    } else {
+      setIsFavorite(false);
+    }
+    if (currentUser && Array.isArray(currentUser.recentAdd)) {
+      const alreadyWatchAdd = currentUser.recentAdd.some(
+        (fav) => String(fav.id) === String(id)
+      );
+      setIsWatchNext(alreadyWatchAdd);
+    } else {
+      setIsWatchNext(false);
+    }
+  }, [id, currentUser]);
 
   return (
     <motion.div
-      className="min-h-screen from-gray-900 to-black text-white"
+      className={`min-h-screen from-gray-900 ${
+        theme === "dark" ? "bg-black text-white" : "bg-white text-black"
+      }`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
@@ -104,7 +111,9 @@ const SearchMovies = () => {
           whileHover={{ scale: 1.02 }}
         >
           <motion.div
-            className="max-w-5xl bg-gray-800 rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row"
+            className={`max-w-5xl rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row ${
+              theme === "light" ? "bg-black text-white" : "bg-white text-black"
+            }`}
             whileHover={{
               boxShadow: "0px 0px 20px rgba(255, 255, 0, 0.25)",
             }}
@@ -138,28 +147,28 @@ const SearchMovies = () => {
                 {movie.title}
               </motion.h1>
 
-              <div className="text-gray-300 space-y-2">
+              <div className=" space-y-2">
                 <p>
-                  <span className="font-semibold text-white">Year :</span>{" "}
+                  <span className="font-semibold ">Year :</span>{" "}
                   {movie.release_date}
                 </p>
                 <p>
-                  <span className="font-semibold text-white">imdbID :</span>{" "}
+                  <span className="font-semibold ">imdbID :</span>{" "}
                   {movie.id || "N/A"}
                 </p>
 
                 <p>
-                  <span className="font-semibold text-white">Language :</span>{" "}
+                  <span className="font-semibold ">Language :</span>{" "}
                   {movie.original_language || "N/A"}
                 </p>
                 <p>
-                  <span className="font-semibold text-white">Overview :</span>{" "}
+                  <span className="font-semibold ">Overview :</span>{" "}
                   {movie.overview || "N/A"}
                 </p>
               </div>
 
               <motion.p
-                className="text-gray-400 mt-4 leading-relaxed"
+                className="mt-4 leading-relaxed"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.3 }}
@@ -168,7 +177,7 @@ const SearchMovies = () => {
               </motion.p>
 
               <motion.p
-                className="text-gray-400 mt-4 leading-relaxed"
+                className="mt-4 leading-relaxed"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
@@ -176,7 +185,7 @@ const SearchMovies = () => {
                 <span>Rating: {movie.vote_average || "N/A"}</span>
               </motion.p>
 
-              {selectedMovie?.imdbID === movie.imdbID && (
+              {/* {selectedMovie?.id === movie.id && (
                 <motion.button
                   onClick={(e) => {
                     e.stopPropagation();
@@ -192,7 +201,34 @@ const SearchMovies = () => {
                 >
                   {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
                 </motion.button>
-              )}
+              )} */}
+              <motion.button
+                onClick={handleFavorite}
+                className={`mt-4 px-5 py-2 rounded-lg font-semibold transition ${
+                  isFavorite
+                    ? "bg-red-500 hover:bg-red-400 text-white"
+                    : "bg-yellow-400 hover:bg-yellow-300 text-black"
+                }`}
+                whileHover={{ scale: 1.08 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 200 }}
+              >
+                {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
+              </motion.button>
+
+              <motion.button
+                onClick={handleWatchNext}
+                className={`mt-4 ml-2 px-5 py-2 rounded-lg font-semibold transition ${
+                  isWatchNext
+                    ? "bg-red-500 hover:bg-red-400 text-white"
+                    : "bg-yellow-400 hover:bg-yellow-300 text-black"
+                }`}
+                whileHover={{ scale: 1.08 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 200 }}
+              >
+                {isWatchNext ? "Remove from watch next" : "Add to watch next"}
+              </motion.button>
 
               <motion.div
                 initial={{ opacity: 0, y: 20 }}

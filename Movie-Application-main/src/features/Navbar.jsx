@@ -5,8 +5,6 @@ import { logoutUser } from "../slice/userSlice";
 import { clearSearch, fetchSearchMovies } from "../slice/moviesSlice";
 import { useTheme } from "../context/ThemeContext";
 
-const API_KEY = "e32df389c6a214da047b0c9721fa1840";
-
 const Navbar = () => {
   const [query, setQuery] = useState("");
   const dispatch = useDispatch();
@@ -73,12 +71,12 @@ const Navbar = () => {
         </form>
 
         <ul className="flex flex-wrap gap-4 md:gap-6 font-medium justify-center md:justify-end">
-          <button
+          <li
             onClick={toggleTheme}
-            className={`px-2 py-1 rounded-md bg-white`}
+            className={`hover:text-yellow-300 cursor-pointer transition`}
           >
-            {theme === "light" ? "🌙" : "☀️"}
-          </button>
+            {theme === "light" ? "Light" : "Dark"}
+          </li>
           <li className="hover:text-yellow-300 cursor-pointer transition">
             <Link to="/">Home</Link>
           </li>

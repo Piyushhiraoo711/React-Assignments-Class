@@ -4,6 +4,7 @@ import { getUser, saveUser } from "../localStorage/localStorage";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../slice/userSlice";
 import { useTheme } from "../context/ThemeContext";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ const Login = () => {
     const { username, password } = user;
 
     if (!username || !password) {
-      alert("Please enter username and password");
+      toast.error("Please enter username and password");
       return;
     }
 
@@ -86,9 +87,9 @@ const Login = () => {
             </form>
             <div>
               <p className="mt-2 text-sm ">
-                Don't have an account? 
+                Don't have an account?
                 <Link to="/signup" className="text-blue-800 underline-none">
-                  <span>  Sign Up </span>
+                  <span> Sign Up </span>
                 </Link>
               </p>
             </div>

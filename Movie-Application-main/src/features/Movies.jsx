@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchByGenre, fetchMovies } from "../slice/moviesSlice";
+import {
+  fetchByGenre,
+  fetchMovies,
+  fetchMoviesSorted,
+} from "../slice/moviesSlice";
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
@@ -11,6 +15,7 @@ const Movies = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [genre, setGenre] = useState("");
+  const [sortBy, setSortBy] = useState("");
   const { discoverMovies, loading, totalPages } = useSelector(
     (state) => state.movies
   );
@@ -40,10 +45,12 @@ const Movies = () => {
   useEffect(() => {
     if (genre) {
       dispatch(fetchByGenre({ genreId: genre, page }));
+    } else if (sortBy) {
+      dispatch(fetchMoviesSorted({ sortBy, page }));
     } else {
       dispatch(fetchMovies(page));
     }
-  }, [genre, page, dispatch]);
+  }, [genre, sortBy, page, dispatch]);
 
   const renderPagination = () => {
     const buttons = [];
@@ -105,35 +112,61 @@ const Movies = () => {
       <h1 className="text-3xl font-bold mb-6">Popular Movies</h1>
       {loading && <p className="text-center">Loading...</p>}
 
-      <div className="mt-20">
-        <div
-          className="lex flex-col sm:flex-row items-center justify-center w-60
+      <div className="flex justify-center">
+        <div className="mt-20">
+          <div
+            className="lex flex-col sm:flex-row items-center justify-center w-60
             gap-2 "
-        >
-          <label className="text-center sm:text-left">Sort By :</label>
-          <select
-            onChange={(e) => setGenre(e.target.value)}
-            value={genre}
-            name="genre"
-            className={`p-2 ml-1 border border-white ${
-              theme === "dark" ? "bg-black text-white" : "bg-white text-black"
-            }`}
           >
-            <option value="" className="">
-              Filter by Genre
-            </option>
-            {genresList.map((g) => (
-              <option
-                className="text-gray-700  dark:text-gray-200 bg-white dark:bg-gray-800"
-                key={g.id}
-                value={g.id}
-              >
-                {g.name}
+            <label className="text-center sm:text-left">Sort By :</label>
+            <select
+              onChange={(e) => setGenre(e.target.value)}
+              value={genre}
+              name="genre"
+              className={`p-2 ml-1 border border-white ${
+                theme === "dark" ? "bg-black text-white" : "bg-white text-black"
+              }`}
+            >
+              <option value="" className="">
+                Filter by Genre
               </option>
-            ))}
-          </select>
+              {genresList.map((g) => (
+                <option
+                  className="text-gray-700  dark:text-gray-200 bg-white dark:bg-gray-800"
+                  key={g.id}
+                  value={g.id}
+                >
+                  {g.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <div className="mt-20">
+          <div
+            className="lex flex-col sm:flex-row items-center justify-center w-60
+            gap-2 "
+          >
+            <label className="text-center sm:text-left">Sort By :</label>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className={`p-2 ml-1 border border-white ${
+                theme === "dark" ? "bg-black text-white" : "bg-white text-black"
+              }`}
+            >
+              <option value="" className="">
+                Select
+              </option>
+              <option value="vote_average.desc">Highest Rated</option>
+              <option value="vote_average.asc">Lowest Rated</option>
+              <option value="release_date.desc">Newest</option>
+              <option value="release_date.asc">Oldest</option>
+            </select>
+          </div>
         </div>
       </div>
+
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 mt-4">
         {discoverMovies.map((movie) => (
           <div

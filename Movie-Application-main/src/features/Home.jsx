@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import CarouselSlider from "../slider/CarouselSlider";
 import SwiperSlider from "../slider/SwiperSlider";
 import { useDispatch, useSelector } from "react-redux";
+import Footer from "../features/Footer.jsx";
 import {
   fetchComedyMovies,
   fetchHorrorMovies,
@@ -80,6 +81,7 @@ const Home = () => {
           <SwiperSlider title="Horror Movies" movies={horror} />
           <SwiperSlider title="Comedy Movies" movies={comedy} />
         </section>
+        <Footer />
       </div>
     </>
   );

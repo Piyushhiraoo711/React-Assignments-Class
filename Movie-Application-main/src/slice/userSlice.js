@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const API_URL = "http://localhost:3000/users";
+const API_URL = "https://6901d5ecb208b24affe3e605.mockapi.io/users";
 
 const saveToLocalStorage = (users) => {
   localStorage.setItem("users", JSON.stringify(users));
@@ -9,24 +9,27 @@ const saveToLocalStorage = (users) => {
 export const signupUser = createAsyncThunk(
   "users/signupUser",
   async (userData, { rejectWithValue }) => {
+    console.log("dhsjsnd")
     try {
+      console.log(`${API_URL}?username=${userData.username}`)
       const res = await fetch(`${API_URL}?username=${userData.username}`);
       const existing = await res.json();
+      console.log("dhsjsnd")
       if (existing.length > 0) return rejectWithValue("User already exists");
 
-      const response = await fetch(API_URL, {
+      const response = await fetch(`https://6901d5ecb208b24affe3e605.mockapi.io/users`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...userData, isLogin: false }),
       });
       const newUser = await response.json();
 
-      const usersRes = await fetch(API_URL);
+      const usersRes = await fetch(`https://6901d5ecb208b24affe3e605.mockapi.io/users`);
       const allUsers = await usersRes.json();
       await Promise.all(
         allUsers.map((u) =>
           fetch(`${API_URL}/${u.id}`, {
-            method: "PATCH",
+            method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ isLogin: false }),
           })
@@ -34,7 +37,7 @@ export const signupUser = createAsyncThunk(
       );
 
       const loginRes = await fetch(`${API_URL}/${newUser.id}`, {
-        method: "PATCH",
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ isLogin: true }),
       });
@@ -56,7 +59,8 @@ export const loginUser = createAsyncThunk(
   "users/loginUser",
   async ({ username, password }, { rejectWithValue }) => {
     try {
-      const res = await fetch(API_URL);
+      console.log("sjdkfdsf")
+      const res = await fetch("https://6901d5ecb208b24affe3e605.mockapi.io/users");
       const users = await res.json();
 
       const user = users.find(
@@ -67,7 +71,7 @@ export const loginUser = createAsyncThunk(
       await Promise.all(
         users.map((u) =>
           fetch(`${API_URL}/${u.id}`, {
-            method: "PATCH",
+            method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ isLogin: false }),
           })
@@ -75,7 +79,7 @@ export const loginUser = createAsyncThunk(
       );
 
       const loginRes = await fetch(`${API_URL}/${user.id}`, {
-        method: "PATCH",
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ isLogin: true }),
       });
@@ -98,7 +102,7 @@ export const logoutUser = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const res = await fetch(`${API_URL}/${id}`, {
-        method: "PATCH",
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ isLogin: false }),
       });
@@ -133,8 +137,8 @@ export const addFavorite = createAsyncThunk(
         ? [...currentUser.favorites, movie]
         : [movie];
 
-      const res = await fetch(`http://localhost:3000/users/${currentUser.id}`, {
-        method: "PATCH",
+      const res = await fetch(`https://6901d5ecb208b24affe3e605.mockapi.io/users/${currentUser.id}`, {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ favorites: updatedFavorites }),
       });
@@ -168,8 +172,8 @@ export const removeFavorite = createAsyncThunk(
         (m) => m.id !== movieId
       );
 
-      const res = await fetch(`http://localhost:3000/users/${currentUser.id}`, {
-        method: "PATCH",
+      const res = await fetch(`https://6901d5ecb208b24affe3e605.mockapi.io/users/${currentUser.id}`, {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ favorites: updatedFavorites }),
       });
@@ -206,8 +210,8 @@ export const addRecentMovie = createAsyncThunk(
         ? [...currentUser.recentAdd, movie]
         : [movie];
 
-      const res = await fetch(`http://localhost:3000/users/${currentUser.id}`, {
-        method: "PATCH",
+      const res = await fetch(`https://6901d5ecb208b24affe3e605.mockapi.io/users/${currentUser.id}`, {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ recentAdd: updatedRecent }),
       });
@@ -241,8 +245,8 @@ export const removeRecentMovie = createAsyncThunk(
         (m) => m.id !== movieId
       );
 
-      const res = await fetch(`http://localhost:3000/users/${currentUser.id}`, {
-        method: "PATCH",
+      const res = await fetch(`https://6901d5ecb208b24affe3e605.mockapi.io/users/${currentUser.id}`, {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ recentAdd: updatedRecent }),
       });

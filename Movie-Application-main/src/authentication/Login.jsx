@@ -51,49 +51,61 @@ const Login = () => {
   return (
     <>
       <div
-        className="w-full h-screen bg-cover bg-center flex justify-center items-center"
+        className="w-full h-screen bg-cover bg-center flex justify-center items-center px-4"
         style={{
           backgroundImage:
             "url('https://i.pinimg.com/736x/19/8b/2f/198b2f01e73b905772279616eccc7c65.jpg')",
         }}
       >
         <div
-          className={`flex flex-col justify-center items-center w-[40%] h-[40%] rounded-lg ${
-            theme === "dark" ? "bg-black text-white" : " bg-gray-500 text-black"
-          }`}
+          className={`flex flex-col justify-center items-center 
+      w-full sm:w-[80%] md:w-[60%] lg:w-[40%] 
+      h-auto md:h-[60%] 
+      rounded-2xl shadow-2xl p-6 sm:p-8 md:p-10 
+      backdrop-blur-md border border-white/20 transition-all duration-300
+      ${
+        theme === "dark" ? "bg-black/40 text-white" : "bg-white/40 text-black"
+      }`}
         >
-          <h2 className="font-semibold">Enter Your info to Login </h2>
-          <div className="mt-4 ">
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4 ">
-              <input
-                className=" border border-gray-300 rounded-md p-2 w-64 "
-                placeholder="Enter username or email ..."
-                type="text"
-                name="username"
-                value={user.username}
-                onChange={handleChange}
-              />
-              <input
-                className=" border border-gray-300 rounded-md p-2 w-64 "
-                placeholder="Enter password"
-                type="password"
-                name="password"
-                value={user.password}
-                onChange={handleChange}
-              />
-              <button type="submit" className="bg-purple-700 rounded-2xl py-1 ">
-                Login
-              </button>
-            </form>
-            <div>
-              <p className="mt-2 text-sm ">
-                Don't have an account?
-                <Link to="/signup" className="text-blue-800 underline-none">
-                  <span> Sign Up </span>
-                </Link>
-              </p>
-            </div>
-          </div>
+          <h2 className="font-semibold text-lg sm:text-xl md:text-2xl mb-4 text-center">
+            Enter Your Info to Login
+          </h2>
+
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col gap-4 items-center w-full"
+          >
+            <input
+              className="border border-gray-300 rounded-md p-2 w-64 sm:w-72 md:w-80 lg:w-96 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              placeholder="Enter username or email ..."
+              type="text"
+              name="username"
+              value={user.username}
+              onChange={handleChange}
+            />
+            <input
+              className="border border-gray-300 rounded-md p-2 w-64 sm:w-72 md:w-80 lg:w-96 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              placeholder="Enter password"
+              type="password"
+              name="password"
+              value={user.password}
+              onChange={handleChange}
+            />
+
+            <button
+              type="submit"
+              className="bg-purple-700 hover:bg-purple-800 text-white rounded-2xl py-2 px-6 mt-2 transition-all duration-300"
+            >
+              Login
+            </button>
+          </form>
+
+          <p className="mt-4 text-sm text-center">
+            Don’t have an account?
+            <Link to="/signup" className="text-yellow-400 hover:underline ml-1">
+              Sign Up
+            </Link>
+          </p>
         </div>
       </div>
     </>

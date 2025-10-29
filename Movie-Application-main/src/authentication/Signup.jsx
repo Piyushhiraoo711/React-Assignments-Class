@@ -45,7 +45,7 @@ const Signup = () => {
   return (
     <>
       <div
-        className="w-full min-h-screen bg-cover bg-center flex justify-center items-center px-4 sm:px-6 md:px-8"
+        className="w-full h-screen bg-cover bg-center flex justify-center items-center px-4"
         style={{
           backgroundImage:
             "url('https://i.pinimg.com/736x/19/8b/2f/198b2f01e73b905772279616eccc7c65.jpg')",
@@ -53,26 +53,24 @@ const Signup = () => {
       >
         <div
           className={`flex flex-col justify-center items-center 
-                w-full sm:w-[80%] md:w-[60%] lg:w-[40%] 
-                h-auto md:h-[65%] 
-                rounded-2xl shadow-2xl p-6 sm:p-8 md:p-10 
-                backdrop-blur-sm transition-all duration-300
-                ${
-                  theme === "dark"
-                    ? "bg-black/80 text-white"
-                    : "bg-gray-100/90 text-black"
-                }`}
+      w-full sm:w-[80%] md:w-[60%] lg:w-[40%] 
+      h-auto md:h-[70%] 
+      rounded-2xl shadow-2xl p-6 sm:p-8 md:p-10 
+      backdrop-blur-md border border-white/20 transition-all duration-300
+      ${
+        theme === "dark" ? "bg-black/40 text-white" : "bg-white/40 text-black"
+      }`}
         >
-          <h2 className="font-semibold text-lg md:text-2xl mb-4 text-center">
+          <h2 className="font-semibold text-lg sm:text-xl md:text-2xl mb-4 text-center">
             Enter Your Info to Register
           </h2>
 
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col gap-4 w-full max-w-sm"
+            className="flex flex-col gap-4 items-center w-full max-w-sm"
           >
             <input
-              className="border border-gray-300 rounded-md p-2 w-full focus:ring-2 focus:ring-purple-600 outline-none"
+              className="border border-gray-300 rounded-md p-2 w-64 sm:w-72 md:w-80 lg:w-96 focus:outline-none focus:ring-2 focus:ring-purple-500"
               placeholder="Enter username or email ..."
               type="text"
               name="username"
@@ -80,7 +78,7 @@ const Signup = () => {
               onChange={handleChange}
             />
             <input
-              className="border border-gray-300 rounded-md p-2 w-full focus:ring-2 focus:ring-purple-600 outline-none"
+              className="border border-gray-300 rounded-md p-2 w-64 sm:w-72 md:w-80 lg:w-96 focus:outline-none focus:ring-2 focus:ring-purple-500"
               placeholder="Enter password"
               type="password"
               name="password"
@@ -88,7 +86,7 @@ const Signup = () => {
               onChange={handleChange}
             />
             <input
-              className="border border-gray-300 rounded-md p-2 w-full focus:ring-2 focus:ring-purple-600 outline-none"
+              className="border border-gray-300 rounded-md p-2 w-64 sm:w-72 md:w-80 lg:w-96 focus:outline-none focus:ring-2 focus:ring-purple-500"
               placeholder="Confirm password"
               type="password"
               name="confirmPassword"
@@ -98,7 +96,7 @@ const Signup = () => {
 
             <button
               type="submit"
-              className="bg-purple-700 hover:bg-purple-800 text-white rounded-full py-2 font-medium transition duration-300"
+              className="bg-purple-700 hover:bg-purple-800 text-white rounded-full py-2 mt-2 font-medium transition-all duration-300 w-64 sm:w-72 md:w-80 lg:w-96"
             >
               Sign Up
             </button>
@@ -108,7 +106,7 @@ const Signup = () => {
             Already have an account?{" "}
             <Link
               to="/login"
-              className="text-blue-600 font-semibold hover:underline"
+              className="text-yellow-400 font-semibold hover:underline"
             >
               Login
             </Link>

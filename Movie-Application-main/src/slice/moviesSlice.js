@@ -89,29 +89,6 @@ export const fetchSearchMovies = createAsyncThunk(
   }
 );
 
-export const fetchByGenre = createAsyncThunk(
-  "movies/fetchByGenre",
-  async ({ genreId, page = 1 }, { rejectWithValue }) => {
-    try {
-      const url = `${BASE_URL}/discover/movie?api_key=${TMDB_API_KEY}&language=en-US&with_genres=${genreId}&page=${page}`;
-      console.log("Fetching:", url);
-
-      const res = await fetch(url);
-      if (!res.ok) throw new Error("Failed to fetch movies");
-
-      const data = await res.json();
-      return {
-        results: data.results,
-        totalPages: data.total_pages,
-        currentPage: page,
-      };
-    } catch (error) {
-      console.error("Error fetching by genre:", error);
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
 export const fetchMovies = createAsyncThunk(
   "movies/fetchMovies",
   async (pageNumber = 1, { rejectWithValue }) => {
@@ -134,6 +111,30 @@ export const fetchMovies = createAsyncThunk(
   }
 );
 
+export const fetchByGenre = createAsyncThunk(
+  "movies/fetchByGenre",
+  async ({ genreId, page = 1 }, { rejectWithValue }) => {
+    try {
+      console.log("i am genre movie")
+      const url = `${BASE_URL}/discover/movie?api_key=${TMDB_API_KEY}&language=en-US&with_genres=${genreId}&page=${page}`;
+      console.log("Fetching:", url);
+
+      const res = await fetch(url);
+      if (!res.ok) throw new Error("Failed to fetch movies");
+
+      const data = await res.json();
+      return {
+        results: data.results,
+        totalPages: data.total_pages,
+        currentPage: page,
+      };
+    } catch (error) {
+      console.error("Error fetching by genre:", error);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const fetchMoviesSorted = createAsyncThunk(
   "movies/fetchMoviesSorted",
   async (
@@ -141,6 +142,7 @@ export const fetchMoviesSorted = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
+      console.log("i am sorted movie")
       const url = `${BASE_URL}/discover/movie?api_key=${TMDB_API_KEY}&language=en-US&page=${page}${
         genreId ? `&with_genres=${genreId}` : ""
       }&sort_by=${sortBy}`;

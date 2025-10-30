@@ -11,11 +11,11 @@ export const signupUser = createAsyncThunk(
   "users/signupUser",
   async (userData, { rejectWithValue }) => {
     try {
-      // console.log(`${API_URL}?username=${userData.username}`)
-      // const res = await fetch(`${API_URL}?username=${userData.username}`);
-      // const existing = await res.json();
-      // console.log("dhsjsnd")
-      // if (existing.length > 0) return rejectWithValue("User already exists");
+      console.log(`${API_URL}?username=${userData.username}`)
+      const res = await fetch(`${API_URL}?username=${userData.username}`);
+      const existing = await res.json();
+      console.log("existing",existing)
+      if (!existing) return rejectWithValue("User already exists");
 
       const response = await fetch(API_URL, {
         method: "POST",
@@ -66,7 +66,7 @@ export const loginUser = createAsyncThunk(
       const user = users.find(
         (u) => u.username === username && u.password === password
       );
-      if (!user) return toast.error(rejectWithValue("Invalid username or password"));
+      if (!user) return rejectWithValue("Invalid username or password");
 
       await Promise.all(
         users.map((u) =>

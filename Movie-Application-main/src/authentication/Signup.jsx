@@ -31,6 +31,7 @@ const Signup = () => {
     // saveUser(userData);
     dispatch(signupUser({ username, password }));
     navigate("/");
+    toast.success("Sign up successfully");
   }
 
   const handleSubmit = (e) => {

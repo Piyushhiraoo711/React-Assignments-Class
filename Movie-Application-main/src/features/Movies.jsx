@@ -16,6 +16,7 @@ const Movies = () => {
   const dispatch = useDispatch();
   const [genre, setGenre] = useState("");
   const [sortBy, setSortBy] = useState("");
+  const [isSelcted, setIsSelected] = useState(true);
   const { discoverMovies, loading, totalPages } = useSelector(
     (state) => state.movies
   );
@@ -120,11 +121,11 @@ const Movies = () => {
           >
             <label className="text-center sm:text-left">Sort By :</label>
             <select
-              onChange={(e) => setGenre(e.target.value)}
+              onChange={(e) => {setGenre(e.target.value); setSortBy("")}}
               value={genre}
               name="genre"
-              className={`p-2 ml-1 border border-white ${
-                theme === "dark" ? "bg-black text-white" : "bg-white text-black"
+              className={`p-2 ml-1 border border-black ${
+                theme === "dark" ? "bg-black text-white border-white" : "bg-white text-black border-black "
               }`}
             >
               <option value="" className="">
@@ -150,9 +151,9 @@ const Movies = () => {
             <label className="text-center sm:text-left">Sort By :</label>
             <select
               value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className={`p-2 ml-1 border border-white ${
-                theme === "dark" ? "bg-black text-white" : "bg-white text-black"
+              onChange={(e) => {setSortBy(e.target.value); setGenre("")}}
+              className={`p-2 ml-1 border  ${
+                theme === "dark" ? "bg-black text-white border-white" : "bg-white text-black border-black"
               }`}
             >
               <option value="" className="">

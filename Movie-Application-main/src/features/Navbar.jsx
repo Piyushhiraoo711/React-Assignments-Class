@@ -71,11 +71,21 @@ const Navbar = () => {
             placeholder="Search movies..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="px-3 py-2 rounded-l-lg text-white border border-white w-60 sm:w-72 md:w-80"
+            className={`px-3 py-2 rounded-l-lg  w-60 sm:w-72 md:w-80
+              ${
+                theme === "light"
+                  ? " border border-white  "
+                  : "border border-black  "
+              }
+              `}
           />
           <button
             type="submit"
-            className="bg-white border border-white text-black px-4 py-2 rounded-r-lg font-semibold"
+            className={`px-4 py-2 rounded-r-lg font-semibold ${
+              theme === "light"
+                ? " border border-white bg-white text-black"
+                : "border border-black bg-black  text-white"
+            }`}
           >
             Search
           </button>

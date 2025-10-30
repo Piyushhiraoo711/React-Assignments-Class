@@ -23,26 +23,23 @@ const Login = () => {
     }));
   };
 
-const handleLogin = async (username, password) => {
-  try {
-    const resultAction = await dispatch(loginUser({ username, password }));
-    console.log("resultAction", resultAction);
+  const handleLogin = async (username, password) => {
+    try {
+      const resultAction = await dispatch(loginUser({ username, password }));
 
-    if (loginUser.fulfilled.match(resultAction)) {
-      const data = resultAction.payload;
-
-      if (data && data.success) {
-        navigate("/");
-        toast.success("Login successful");
-      } 
-    } else {
-      toast.error("Login failed. Please try again.");
+      if (loginUser.fulfilled.match(resultAction)) {
+        const data = resultAction.payload;
+        if (data) {
+          toast.success("Login successful");
+          navigate("/");
+        }
+      } else {
+        toast.error("Invalid username or password");
+      }
+    } catch (err) {
+      console.error("Login error:", err);
     }
-  } catch (err) {
-    console.error("Login error:", err);
-  }
-};
-
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();

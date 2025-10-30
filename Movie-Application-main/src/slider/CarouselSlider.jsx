@@ -60,7 +60,7 @@ const CarouselSlider = ({ movies }) => {
           ))}
         </Slider>
       ) : (
-        <p className="text-center mt-20 text-gray-400">Loading movies...</p>
+        <p className="text-center mt-20 text-gray-400 flex items-center justify-center">Loading movies...</p>
       )}
     </div>
   );
